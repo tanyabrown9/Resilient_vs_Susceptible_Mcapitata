@@ -1,2 +1,2 @@
 # Resilient_vs_Susceptible_Mcapitata
-Microbiome analysis pipeline files for the resilient vs suscepible Montipora capitata proteomics study.
+This is a repositiory for the microbiome analysis associated with the resistant vs susceptible Montipora capitata proteomics study. 
