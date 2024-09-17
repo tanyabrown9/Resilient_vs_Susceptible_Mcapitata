@@ -1,0 +1,27 @@
+#this is run out of the procedure folder
+#picrust 2 is installed in qiime2 amplicon 2024.5
+qiime picrust2 full-pipeline \
+   --i-table ../output/feature_table_live_vs_dead.qza \
+   --i-seq ../output/rep-seqs_merged.qza \
+   --output-dir ../output/q2-picrust2_output \
+   --p-placement-tool sepp \
+   --p-threads 1 \
+   --p-hsp-method pic \
+   --p-max-nsti 2 \
+   --verbose
+   
+#run alpha and beta diversity on ec-metagenomics qza file
+qiime diversity core-metrics \
+   --i-table ../output/q2-picrust2_output/ec_metagenome.qza \
+   --p-sampling-depth 1 \
+   --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv \
+   --output-dir ../output/q2-picrust2_output/ec_metagenome_core_metrics_out \
+   --p-n-jobs 1
+   
+#run alpha and beta diversity on ko-metagenomics qza file
+qiime diversity core-metrics \
+   --i-table ../output/q2-picrust2_output/ko_metagenome.qza \
+   --p-sampling-depth 1 \
+   --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv \
+   --output-dir ../output/q2-picrust_output/ko_metagenome_core_metrics_out \
+   --p-n-jobs 1
