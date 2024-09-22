@@ -13,15 +13,32 @@ qiime picrust2 full-pipeline \
 #run alpha and beta diversity on ec-metagenomics qza file
 qiime diversity core-metrics \
    --i-table ../output/q2-picrust2_output/ec_metagenome.qza \
-   --p-sampling-depth 1 \
+   --p-sampling-depth 366 \
    --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv \
-   --output-dir ../output/q2-picrust2_output/ec_metagenome_core_metrics_out \
+   --output-dir ../output/q2-picrust_output/ec_metagenome_core_metrics_out \
    --p-n-jobs 1
+   
+qiime diversity alpha    --i-table ../output/q2-picrust2_output/ec_metagenome.qza --p-metric simpson --o-alpha-diversity ../output/q2-picrust_output/ec_simpson.qza 
    
 #run alpha and beta diversity on ko-metagenomics qza file
 qiime diversity core-metrics \
    --i-table ../output/q2-picrust2_output/ko_metagenome.qza \
-   --p-sampling-depth 1 \
+   --p-sampling-depth 366 \
    --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv \
    --output-dir ../output/q2-picrust_output/ko_metagenome_core_metrics_out \
    --p-n-jobs 1
+   
+qiime diversity alpha    --i-table ../output/q2-picrust2_output/ko_metagenome.qza --p-metric simpson --o-alpha-diversity ../output/q2-picrust_output/ko_simpson.qza   
+   
+#run alpha diversity comparison after running core metrics for both ec and ko files
+qiime diversity alpha-group-significance --i-alpha-diversity ../output/q2-picrust_output/ko_metagenome_core_metrics_out/shannon_vector.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --o-visualization ../output/q2-picrust_output/ko_metagenome_core_metrics_out/ko_evenness_visualization.qzv
+
+qiime diversity alpha-group-significance --i-alpha-diversity ../output/q2-picrust_output/ko_metagenome_core_metrics_out/shannon_vector.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --o-visualization ../output/q2-picrust_output/ko_metagenome_core_metrics_out/ko_evenness_visualization.qzv
+
+qiime diversity beta-group-significance --i-distance-matrix ../output/q2-picrust_output/ec_metagenome_core_metrics_out/bray_curtis_distance_matrix.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --m-metadata-column Susceptible_Status --o-visualization ../output/q2-picrust_output/ec_metagenome_core_metrics_out/ec_bray_curtis_susceptibility_visualization.qzv
+qiime diversity beta-group-significance --i-distance-matrix ../output/q2-picrust_output/ec_metagenome_core_metrics_out/bray_curtis_distance_matrix.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --m-metadata-column Susceptible_Status_Time --o-visualization ../output/q2-picrust_output/ec_metagenome_core_metrics_out/ec_bray_curtis_susceptibility_status_time_visualization.qzv
+qiime diversity beta-group-significance --i-distance-matrix ../output/q2-picrust_output/ec_metagenome_core_metrics_out/bray_curtis_distance_matrix.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --m-metadata-column Time --o-visualization ../output/q2-picrust_output/ec_metagenome_core_metrics_out/ec_bray_curtis_time_visualization.qzv
+
+qiime diversity beta-group-significance --i-distance-matrix ../output/q2-picrust_output/ko_metagenome_core_metrics_out/bray_curtis_distance_matrix.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --m-metadata-column Susceptible_Status --o-visualization ../output/q2-picrust_output/ko_metagenome_core_metrics_out/ko_bray_curtis_susceptibility_visualization.qzv
+qiime diversity beta-group-significance --i-distance-matrix ../output/q2-picrust_output/ko_metagenome_core_metrics_out/bray_curtis_distance_matrix.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --m-metadata-column Susceptible_Status_Time --o-visualization ../output/q2-picrust_output/ko_metagenome_core_metrics_out/ko_bray_curtis_susceptibility_status_time_visualization.qzv
+qiime diversity beta-group-significance --i-distance-matrix ../output/q2-picrust_output/ko_metagenome_core_metrics_out/bray_curtis_distance_matrix.qza --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --m-metadata-column Time --o-visualization ../output/q2-picrust_output/ko_metagenome_core_metrics_out/ko_bray_curtis_time_visualization.qzv
