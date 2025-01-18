@@ -37,10 +37,10 @@ qiime feature-table filter-samples --i-table ../output/merged_table.qza --m-meta
 qiime taxa filter-table --i-table ../output/merged_table.qza --i-taxonomy ../output/silva_metaxa2_reference_taxonomy_live_vs_dead.qza --p-exclude mitochondria,chloroplast --o-filtered-table ../output/feature_table_live_vs_dead.qza
 
 #core metrics
-qiime diversity core-metrics --i-table ../output/feature_table_live_vs_dead.qza --p-sampling-depth 1 --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --output-dir ../output/core_metrics_3_10_21
+qiime diversity core-metrics --i-table ../output/feature_table_live_vs_dead.qza --p-sampling-depth 1000 --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --output-dir ../output/core_metrics_3_10_21
 
 #core metrics phylogenetic
-qiime diversity core-metrics-phylogenetic --i-table ../output/feature_table_live_vs_dead.qza --i-phylogeny ../input/insertion-tree_silva_live_vs_dead_march.qza --p-sampling-depth 1 --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --output-dir ../output/core_metrics_phylo_6.5.21/
+qiime diversity core-metrics-phylogenetic --i-table ../output/feature_table_live_vs_dead.qza --i-phylogeny ../input/insertion-tree_silva_live_vs_dead_march.qza --p-sampling-depth 1000 --m-metadata-file ../input/sample-metadata_live_vs_dead_combo.tsv --output-dir ../output/core_metrics_phylo_6.5.21/
 
 
 #taxa barplot
